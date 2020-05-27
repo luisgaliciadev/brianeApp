@@ -1,0 +1,39 @@
+<ion-content>
+  
+  <ion-card>
+      <ion-img src="./assets/images/logo_briane.png"></ion-img>
+      <ion-card-header>
+          <ion-card-title>Transporte BRIANE</ion-card-title>
+          <ion-card-subtitle>SIEMPRE LISTOS</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+          <p class="ion-text-justify">
+              Nos basamos aplicando en nuestro día a día trabajar con honestidad y el comportamiento ético son fundamentales. Nuestros códigos de ética son los impulsores de promover estos valores tanto entre nuestros colaboradores como ante nuestros clientes estratégicos.
+              Esta manera, nos aseguramos que el trabajo se desarrolle con eficiencia y eficacia.
+          </p>
+      </ion-card-content>
+  </ion-card>
+
+  <ion-card class="login">
+
+      <ion-list>
+          <ion-item>
+              <!-- <ion-label position="floating">Usuario:</ion-label> -->
+              <ion-input autofocus="on" clearInput="true" placeholder="Ingrese su usuario" required="true"></ion-input>
+              <ion-icon name="person" color="medium" slot="end"></ion-icon>
+          </ion-item>
+
+          <ion-item>
+              <!-- <ion-label position="floating">Contraseña:</ion-label> -->
+              <ion-input autofocus="on" clearInput="true" placeholder="Ingrese su contraseña" required="true"></ion-input>
+              <ion-icon name="lock-closed-outline" color="medium" slot="end"></ion-icon>
+          </ion-item>
+      </ion-list>
+
+      <ion-card-content>
+          <ion-button expand="block" color="danger" (click)="onclick()">Ingresar</ion-button>
+      </ion-card-content>
+  </ion-card>
+
+</ion-content>
