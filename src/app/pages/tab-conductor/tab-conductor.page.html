@@ -1,19 +1,65 @@
-<ion-tabs>
-  <ion-tab-bar slot="bottom" color='danger'>
-      <ion-tab-button tab="scan">
-          <ion-icon name="qr-code-outline"></ion-icon>
-          <ion-label>Escáner QR</ion-label>
-      </ion-tab-button>
+<!-- <app-menu [modoOscuro]="modoOscuro" [idContent]="idContent"></app-menu> -->
 
-      <ion-tab-button tab="consultas">
-          <ion-icon name="search-outline"></ion-icon>
-          <ion-label>Consultas</ion-label>
-      </ion-tab-button>
+<ion-split-pane contentId="InicioConductor" when="sm">
 
-      <ion-tab-button tab="ayuda">
-          <ion-icon name="information-circle"></ion-icon>
-          <ion-label>Ayuda</ion-label>
-      </ion-tab-button>
+    <ion-menu side="start" menuId="firstMenu" contentId="InicioConductor">
+        <ion-header>
+            <ion-toolbar>
+              <ion-title>Menu</ion-title>
+            </ion-toolbar>
+        </ion-header>
+      
+        <ion-content>
+          <ion-list>
+            <ion-item>
+                <ion-icon slot="start" name="moon"></ion-icon>
+                <ion-label>Modo Oscuro </ion-label>
+                <ion-toggle [checked]="modoOscuro"
+                            (ionChange) = "tema()"></ion-toggle>
+            </ion-item>
+      
+            <ion-menu-toggle autoHide="false" *ngFor="let menu of menus">            
+                <ion-item [routerLink]="menu.redirectTo">
+                    <ion-icon slot="start" [name]="menu.icon"></ion-icon>
+                    <ion-label>{{menu.name}}</ion-label>
+                </ion-item>
+            </ion-menu-toggle>
+      
+              <ion-item (click)="cerrarSesion()">
+                <ion-icon slot="start" name="power-outline"></ion-icon>
+                <ion-label>Cerrar Sesión </ion-label>
+              </ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-menu>
 
-  </ion-tab-bar>
-</ion-tabs>
+    <ion-content id="InicioConductor">
+        <ion-tabs>
+            <ion-tab-bar slot="bottom" color='danger'>
+            <ion-tab-button tab="inicio">
+                <ion-icon name="home-outline"></ion-icon>
+                <ion-label>Inicio</ion-label>
+            </ion-tab-button>
+        
+              <ion-tab-button tab="scan">
+                  <ion-icon name="qr-code-outline"></ion-icon>
+                  <ion-label>Escáner QR</ion-label>
+              </ion-tab-button>
+        
+              <ion-tab-button tab="consultas">
+                  <ion-icon name="search-outline"></ion-icon>
+                  <ion-label>Consultas</ion-label>
+              </ion-tab-button>
+        
+              <ion-tab-button tab="ayuda">
+                  <ion-icon name="information-circle"></ion-icon>
+                  <ion-label>Ayuda</ion-label>
+              </ion-tab-button>
+            </ion-tab-bar>
+        </ion-tabs>
+    </ion-content>
+
+</ion-split-pane>
+
+
+

@@ -1,14 +1,15 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="firstMenu" ></ion-menu-button>
+    </ion-buttons>
 
-      <ion-buttons slot="start">
-          <!-- <ion-back-button color="danger" text="" defaultHref="back()"></ion-back-button> -->
-          <ion-button (click)="back()">
-              <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
-          </ion-button>
-      </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarSesion()">
+        <ion-icon slot="icon-only" name="exit-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
 
-      <ion-title text-capitalize>{{title}}</ion-title>
+    <ion-title text-capitalize>{{title}}</ion-title>
   </ion-toolbar>
-
 </ion-header>

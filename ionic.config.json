@@ -4,5 +4,11 @@
     "capacitor": {},
     "cordova": {}
   },
-  "type": "angular"
+  "type": "angular",
+  "proxies": [
+    {
+      "path": "/localhost",
+      "proxyUrl": "http://localhost:3000"
+    }
+  ]
 }

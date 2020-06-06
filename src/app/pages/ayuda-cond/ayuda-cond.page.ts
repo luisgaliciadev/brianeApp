@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Platform } from '@ionic/angular';
+import { Platform, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-ayuda-cond',
@@ -14,23 +14,49 @@ export class AyudaCondPage implements OnInit {
 
   constructor(
     public _platform: Platform,
-    private _router: Router
+    private _router: Router,
+    public _alertController: AlertController
   ) { }
 
-  ionViewDidEnter() {
-    this.subscribe = this._platform.backButton.subscribeWithPriority(666666, () => {
-      if (this.constructor.name === 'AyudaCondPage') {
-        this.subscribe.unsubscribe();
-        this._router.navigate(['/tab-inicio']);
-      }
-    });
-  }
+  // ionViewDidEnter() {
+  //   this.subscribe = this._platform.backButton.subscribeWithPriority(666666, () => {
+  //     if (this.constructor.name === 'AyudaCondPage') { 
+  //       this.presentAlertSalir();      
+  //     }
+  //   });
+  // }
 
-  ionViewDidLeave() {
-    this.subscribe.unsubscribe();
-  }
+  // ionViewDidLeave() {
+  //   this.subscribe.unsubscribe();
+  // }
 
   ngOnInit() {
+  }
+
+  async presentAlertSalir() {
+    const alert = await this._alertController.create({
+      header: 'Mensaje',
+      // subHeader: 'Cerrar Sesión',
+      message: '¿Desea Cerra la Sesión?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            // console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Aceptar',
+          handler: () => {
+            // console.log('Confirm Okay');
+            this.subscribe.unsubscribe();
+            this._router.navigate(['/login']);
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
 }

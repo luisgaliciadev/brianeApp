@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="/tab-conductor/consultas"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title text-capitalize>{{title}}</ion-title>
+  </ion-toolbar>
+  
+</ion-header>
+
+<ion-content>
+  
+  <ion-item>
+    <ion-label>Desde:</ion-label>
+    <ion-datetime placeholder="Desde"                   
+                  display-format="DD MM YYYY"
+                  cancelText="Cancelar"
+                  doneText="Aceptar"                  
+                  [(ngModel)] = "desde"
+                  color="danger"             
+                  ></ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Hasta:</ion-label>
+    <ion-datetime placeholder="Hasta"                   
+                  display-format="DD MM YYYY"
+                  cancelText="Cancelar"
+                  doneText="Aceptar"
+                  [(ngModel)] = "hasta"
+                  ></ion-datetime>
+  </ion-item>
+
+  <ion-button expand="block" color="danger"(click)="buscar()">Buscar</ion-button>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-2 class="gridCol ion-text-center">       
+          Doc.               
+      </ion-col>
+      <ion-col col-2 class="gridCol ion-text-center">
+        Fecha
+      </ion-col>      
+      <ion-col col-6 class="gridCol ion-text-center">
+        Ruta
+      </ion-col>
+      <ion-col col-2 class="gridCol ion-text-center">
+        Importe
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngFor="let viaje of viajes">
+    <ion-row>
+      <ion-col col-2 class="ion-text-center">       
+        {{viaje.GuiRemision}}               
+      </ion-col>
+      <ion-col col-2 class="ion-text-center">
+        {{viaje.Fecha}}
+      </ion-col>      
+      <ion-col col-6 class="ion-text-left">        
+          {{viaje.Partida}} /              
+          {{viaje.Destino}}          
+      </ion-col>
+      <ion-col col-2 class="ion-text-center">
+        {{viaje.ComisionImporte}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-2 class="ion-text-right">       
+        Total Viajes:             
+      </ion-col>
+      <ion-col col-2 class="gridCol ion-text-right">       
+        {{totalViajes}}              
+      </ion-col>      
+    </ion-row>
+    <ion-row>
+      <ion-col col-2 class="ion-text-right">       
+        Total Importe:           
+      </ion-col>
+      <ion-col col-2 class="gridCol ion-text-right">       
+        {{importeTotal}}             
+      </ion-col>     
+    </ion-row>
+  </ion-grid>
+  
+</ion-content>

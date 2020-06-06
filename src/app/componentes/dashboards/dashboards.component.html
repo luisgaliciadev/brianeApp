@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="/tab-inicio/consultas"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title text-capitalize>{{title}}</ion-title>
+  </ion-toolbar>
+  
+</ion-header>
+
+<ion-content>
+  
+  {{link}}
+  <iframe width="100%" height="600" [src]="link" frameborder="0" allowFullScreen="true">
+  </iframe>
+</ion-content>

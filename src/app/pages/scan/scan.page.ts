@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Platform } from '@ionic/angular';
+// import { Router } from '@angular/router';
+// import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-scan',
@@ -9,26 +9,28 @@ import { Platform } from '@ionic/angular';
 })
 export class ScanPage implements OnInit {
 
-  title = 'Scan QR';
+  title = 'Escáner QR';
   subscribe: any;
+  modoOscuro: boolean = false;
 
   constructor(
-    public _platform: Platform,
-    private _router: Router
+    // public _platform: Platform,
+    // private _router: Router
   ) { }
 
-  ionViewDidEnter() {
-    this.subscribe = this._platform.backButton.subscribeWithPriority(666666, () => {
-      if (this.constructor.name === 'ScanPage') {
-        this.subscribe.unsubscribe();
-        this._router.navigate(['/tab-inicio']);
-      }
-    });
-  }
+  // ionViewDidEnter() {
+  //   this.subscribe = this._platform.backButton.subscribeWithPriority(666666, () => {
+  //     if (this.constructor.name === 'ScanPage') {
+  //       this.subscribe.unsubscribe();
+  //       this._router.navigate(['/tab-inicio']);
+  //     }
+  //   });
+  // }
 
-  ionViewDidLeave() {
-    this.subscribe.unsubscribe();
-  }
+  // ionViewDidLeave() {
+  //   this.subscribe.unsubscribe();
+  // }
+  
 
   ngOnInit() {
   }

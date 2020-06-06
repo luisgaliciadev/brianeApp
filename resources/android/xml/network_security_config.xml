@@ -2,5 +2,8 @@
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="true">lgalicialap</domain>
+        <domain includeSubdomains="true">190.117.103.41</domain>
+        <!-- <domain includeSubdomains="true">LGALICIALAP:3000</domain> -->
     </domain-config>
 </network-security-config>

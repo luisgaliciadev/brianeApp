@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { TabConductorPageRoutingModule } from './tab-conductor-routing.module';
 
 import { TabConductorPage } from './tab-conductor.page';
+import { ComponentsModule } from 'src/app/componentes/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TabConductorPageRoutingModule
+    TabConductorPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [TabConductorPage]
 })

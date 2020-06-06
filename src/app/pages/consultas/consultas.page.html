@@ -1,5 +1,10 @@
 <app-header [title]="title || 'Consultas'"></app-header>
 
 <ion-content>
-
+    <ion-list *ngFor="let opcion of opciones">
+        <ion-item [routerLink]="opcion.redirectTo">
+          <ion-icon slot="start" [name]="opcion.icon"></ion-icon>
+          <ion-label detail>{{opcion.name}}</ion-label>
+        </ion-item>  
+    </ion-list>
 </ion-content>
