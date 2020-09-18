@@ -7,12 +7,12 @@
 
   <ion-content>
     <ion-list>
-      <ion-item>
+      <!-- <ion-item>
           <ion-icon slot="start" name="moon"></ion-icon>
           <ion-label>Modo Oscuro </ion-label>
           <ion-toggle [checked]="modoOscuro"
                       (ionChange) = "tema()"></ion-toggle>
-      </ion-item>
+      </ion-item> -->
 
       <ion-menu-toggle autoHide="false" *ngFor="let menu of menus">            
           <ion-item [routerLink]="menu.redirectTo">
@@ -21,10 +21,10 @@
           </ion-item>
       </ion-menu-toggle>
 
-        <ion-item (click)="cerrarSesion()">
+        <!-- <ion-item (click)="cerrarSesion()">
           <ion-icon slot="start" name="power-outline"></ion-icon>
           <ion-label>Cerrar Sesión </ion-label>
-        </ion-item>
+        </ion-item> -->
       </ion-list>
   </ion-content>
 </ion-menu>

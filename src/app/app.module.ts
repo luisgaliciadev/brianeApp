@@ -14,6 +14,9 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { ServiceModule } from './servicios/service.module';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+// import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,11 +29,15 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
     IonicStorageModule.forRoot(),
     HttpClientModule,
     ReactiveFormsModule,
-    ServiceModule
+    ServiceModule,
+    BrowserAnimationsModule
+    
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    BarcodeScanner,
+    // QRScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     InAppBrowser
 

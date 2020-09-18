@@ -5,11 +5,20 @@
     </ion-buttons>
 
     <ion-buttons slot="end">
-      <ion-button (click)="cerrarSesion()">
+      <ion-avatar>
+        <img style="height: 50px; width: 50px; margin-top: 7px;" [src]="userImage">
+      </ion-avatar>
+      <!-- <ion-button (click)="cerrarSesion()">
         <ion-icon slot="icon-only" name="exit-outline"></ion-icon>
-      </ion-button>
+      </ion-button> -->
     </ion-buttons>
 
     <ion-title text-capitalize>{{title}}</ion-title>
   </ion-toolbar>
 </ion-header>
+
+<!-- <ion-buttons slot="end">
+  <ion-avatar>
+    <img style="height: 50px; width: 50px; margin-top: 7px;" [src]="userImage">
+  </ion-avatar>
+</ion-buttons> -->

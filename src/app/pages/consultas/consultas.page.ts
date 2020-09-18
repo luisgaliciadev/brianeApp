@@ -15,20 +15,28 @@ export class ConsultasPage implements OnInit {
   subscribe: any;
   modoOscuro: boolean;  
 
-  opciones = [
-    {
-      "icon": "documents-outline",
-      "name": "Dashboard Ordenes Servicios",
-      "redirectTo": "/dashboard-os",
-      "link": "https://app.powerbi.com/view?r=eyJrIjoiMjk0MTBlZGYtNjIxZi00ZWVkLWFhNDgtNDZiYTNhYjU4NDUzIiwidCI6IjhjYzJjZGExLWVkNzQtNDc3YS04YWU5LTQyNWNmYjg1ZjE4MSJ9",
-    },
+  opciones = [  
     {
       "icon": "stats-chart-outline",
-      "name": "Dashboard KPI Operaciones",
-      "redirectTo": "/dashboard-guias",
-      "link": "https://app.powerbi.com/view?r=eyJrIjoiZWVhMTllNDUtZjY3My00N2NhLWEzM2YtZTk0MmYxN2RhMTQ4IiwidCI6IjhjYzJjZGExLWVkNzQtNDc3YS04YWU5LTQyNWNmYjg1ZjE4MSJ9",
+      "name": "Dashboard",
+      "redirectTo": "/dashboards",
     }
     ];
+
+  // opciones = [
+  //   {
+  //     "icon": "documents-outline",
+  //     "name": "Dashboard Ordenes Servicios",
+  //     "redirectTo": "/dashboard-os",
+  //     "link": "https://app.powerbi.com/view?r=eyJrIjoiMjk0MTBlZGYtNjIxZi00ZWVkLWFhNDgtNDZiYTNhYjU4NDUzIiwidCI6IjhjYzJjZGExLWVkNzQtNDc3YS04YWU5LTQyNWNmYjg1ZjE4MSJ9",
+  //   },
+  //   {
+  //     "icon": "stats-chart-outline",
+  //     "name": "Dashboard KPI Operaciones",
+  //     "redirectTo": "/dashboard-guias",
+  //     "link": "https://app.powerbi.com/view?r=eyJrIjoiZWVhMTllNDUtZjY3My00N2NhLWEzM2YtZTk0MmYxN2RhMTQ4IiwidCI6IjhjYzJjZGExLWVkNzQtNDc3YS04YWU5LTQyNWNmYjg1ZjE4MSJ9",
+  //   }
+  //   ];
 
   constructor(
     public _platform: Platform,

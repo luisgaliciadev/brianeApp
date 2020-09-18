@@ -13,18 +13,29 @@ export class TabConductorPage implements OnInit {
 
   modoOscuro: boolean;
   idContent: string;
+
   menus = [
-    // {
-    //   "icon": "person-circle-outline",
-    //   "name": "Mi perfil",
-    //   "redirectTo": ""
-    // },
-    // {
-    //   "icon": "settings-outline",
-    //   "name": "Configuracion",
-    //   "redirectTo": ""
-    // }
-  ];
+    {
+      "icon": "home-outline",
+      "name": "Inicio",
+      "redirectTo": "/tab-conductor"
+    },
+    {
+      "icon": "person-circle-outline",
+      "name": "Mi perfil",
+      "redirectTo": "/perfil"
+    },
+    {
+      "icon": "search-circle-outline",
+      "name": "Consultas",
+      "redirectTo": "/tab-conductor/consultas"
+    },
+    {
+      "icon": "stats-chart-outline",
+      "name": "Dashboards",
+      "redirectTo": "/dashboards"
+    }
+    ];
 
   constructor(
     public _dataLocalService: DataLocalService,

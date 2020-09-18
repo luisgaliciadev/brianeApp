@@ -15,6 +15,7 @@ export class InicioPage implements OnInit {
   title = 'Inicio';
   subscribe: any;
   modoOscuro: boolean;
+  userImage = '';
 
   slides: { img: string, titulo: string, desc: string }[] = [
     {
@@ -43,21 +44,26 @@ export class InicioPage implements OnInit {
     public _userService: UserService
   ) { 
     this.modoOscuro = this._dataLocalService.modoOscuro;
+    this.userImage = this._userService.user.IMAGE;
   }
 
   ionViewDidEnter() {    
     this.subscribe = this._platform.backButton.subscribeWithPriority(1, () => {
-      if (this.constructor.name === 'InicioPage') {        
+      console.log('presente0');
+      console.log(this.constructor.name);   
+      // if (this.constructor.name === 'InicioPage') {        
         this._menuCtrl.isOpen('firstMenu').then(
           (menuActivo) => {           
             if (menuActivo) {
               this._menuCtrl.toggle();              
-            } else {                          
+            } else {   
+              console.log('presente1');                       
               this.presentAlertSalir();
+              console.log('presente3');
             }
           }
         );
-      }
+      // }
     });
   }
 
@@ -69,6 +75,7 @@ export class InicioPage implements OnInit {
   }  
 
   async presentAlertSalir() {
+    console.log('presente2');
     const alert = await this._alertController.create({
       header: 'Mensaje',      
       message: '¿Desea Cerrar la Sesión?',

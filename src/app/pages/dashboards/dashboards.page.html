@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="/tab-inicio/consultas"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title text-capitalize>{{title}}</ion-title>
+  </ion-toolbar>
+  
+</ion-header>
+
+<ion-content> 
+  <ion-list>
+    <ion-item *ngFor="let opcion of opciones; let i = index" [routerLink]="opcion.URL" detail>
+      <!-- <ion-icon slot="start" color="primary" [name]="opcion.ICON"></ion-icon> -->
+      <i [class]="opcion.ICON"></i>
+      <ion-label>{{opcion.DS_MODULE}}</ion-label>
+    </ion-item> 
+  </ion-list>
+</ion-content>

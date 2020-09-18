@@ -40,9 +40,9 @@ export class LoginPage implements OnInit {
 
   ionViewDidEnter() {
     this.subscribe = this._platform.backButton.subscribeWithPriority(1, () => {
-      if (this.constructor.name === 'LoginPage') {
+      // if (this.constructor.name === 'LoginPage') {
         this.presentAlertSalir();
-      }
+      // }
     });    
   }
 
@@ -62,7 +62,12 @@ export class LoginPage implements OnInit {
     this._userService.loginAdmin(datosLogin.value.email, datosLogin.value.password).subscribe(
       response => {        
         if (response) {
-          this._router.navigate(['/tab-inicio/inicio']);
+          console.log(response);
+          if (response.ID_ROLE == 14) {
+            this._router.navigate(['/tab-conductor/inicio']);
+          } else {
+            this._router.navigate(['/tab-inicio/inicio']);
+          }
           this.password = '';  
         }
       }

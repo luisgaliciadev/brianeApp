@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
 
   @Input() title: string;
   subscribe: any;
+  userImage: string;
   // modoOscuro: boolean;
 
 
@@ -26,7 +27,16 @@ export class HeaderComponent implements OnInit {
     // this.modoOscuro = this._dataLocalService.modoOscuro;
   } 
 
-  ngOnInit() {}
+  ngOnInit() {
+
+    var imagen = this._userService.user.IMAGE;
+    if (imagen) {
+      this.userImage = 'http://190.117.103.41:3000/api/image/user/' + this._userService.user.IMAGE;
+    } else {
+      this.userImage = 'http://190.117.103.41:3000/api/image/user/0' ;
+    }
+
+  }
 
   cerrarSesion() {    
     this.presentAlertSalir();

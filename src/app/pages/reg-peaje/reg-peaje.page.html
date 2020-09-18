@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title text-capitalize>{{title}}</ion-title>
+  </ion-toolbar>  
+</ion-header>
+
+<ion-content>
+
+  <form ngNativeValidate #formPeaje="ngForm" (ngSubmit)="guardar(formPeaje)">
+
+    <ion-card>      
+      <ion-card-header>
+          <ion-card-title>Información del Comprobante</ion-card-title>          
+      </ion-card-header>
+      
+      <ion-card-content>
+        <ion-list>  
+          <ion-item>
+            <ion-label position="floating">Nro. Comprobante:</ion-label>
+            <ion-input type="text" [(ngModel)]="nroComprobante" name="nroComprobante" required="true" placeholder="F001-0000001"></ion-input>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label position="floating">Fecha:</ion-label>
+            <ion-input type="text" [(ngModel)]="fechaComprobante" name="fechaComprobante" required="true"></ion-input>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label position="floating">Monto:</ion-label>
+            <ion-input type="text" [(ngModel)]="montoComprobante" name="montoComprobante" required="true"></ion-input>
+          </ion-item>  
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  
+    <ion-card>      
+      <ion-card-header>
+          <ion-card-title>Información del Viaje</ion-card-title>          
+      </ion-card-header>
+      
+      <ion-card-content>
+        <ion-list>
+  
+          <ion-item>
+            <ion-label position="floating">Nro. Guia:</ion-label>
+            <ion-input type="text" [(ngModel)]="nroGuia" name="nroGuia" required="true" placeholder="0000-0000000"></ion-input>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label position="floating">Nro. Orden Servicio:</ion-label>
+            <ion-input type="text" [(ngModel)]="nroOrden" name="nroOrden" required="true" disabled></ion-input>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label position="floating">Ruta:</ion-label>
+            <ion-input type="text" [(ngModel)]="ruta" name="ruta" required="true" disabled></ion-input>
+          </ion-item>
+
+          
+            <ion-button expand="block" color="danger">Buscar Guia</ion-button>
+         
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card-content>
+      <ion-button [disabled]="!formPeaje.form.valid" type="submit" expand="block" color="danger">Guardar</ion-button>
+    </ion-card-content>
+  </form>
+  
+</ion-content>
+
+
+
+

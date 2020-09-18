@@ -16,7 +16,6 @@ export class DataLocalService {
 
   async verificarTema() {    
     const tema = await this._storage.get('brianeAppTema');
-    
     if (tema) {
       this.modoOscuro = true;
       document.body.classList.toggle('dark');

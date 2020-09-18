@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
+
+    <ion-title text-capitalize>{{title}}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-avatar>
+        <img style="height: 50px; width: 50px; margin-top: 7px;" [src]="userImage">
+      </ion-avatar>
+    </ion-buttons>
+  </ion-toolbar>  
+</ion-header>
+
+<ion-content>
+  <ion-card>      
+    <ion-card-header>
+        <ion-card-title>Información del Perfil</ion-card-title>          
+    </ion-card-header>
+    
+    <ion-card-content>
+      <ion-slide>
+        <ion-avatar style="height: 150px; width: 150px;">
+          <img style="height: 150px; width: 150px;" [src]="userImage">
+        </ion-avatar>
+      </ion-slide>
+      <ion-list>
+        <ion-item>
+          <ion-label position="floating">Nombre de Usuario</ion-label>
+          <ion-input type="text" [(ngModel)]="nombre"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input type="email" [(ngModel)]="email"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Nro. Telefono</ion-label>
+          <ion-input type="text" [(ngModel)]="telefono"></ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -67,15 +67,55 @@ const routes: Routes = [
     loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardPageModule)
   },
   {
-    path: 'dashboard-os',
+    path: 'dashboardop',
     canActivate: [RenewTokenGuard],
     loadChildren: () => import('./pages/dashboard-os/dashboard-os.module').then( m => m.DashboardOsPageModule)
   },
   {
-    path: 'dashboard-guias',
+    path: 'dashboardkpiop',
     canActivate: [RenewTokenGuard],
     loadChildren: () => import('./pages/dashboard-guias/dashboard-guias.module').then( m => m.DashboardGuiasPageModule)
   },
+  {
+    path: 'dashboards',
+    loadChildren: () => import('./pages/dashboards/dashboards.module').then( m => m.DashboardsPageModule)
+  },
+  {
+    path: 'dashboardit-tickets',
+    loadChildren: () => import('./pages/dashboard-kpisistematikect/dashboard-kpisistematikect.module').then( m => m.DashboardKpisistematikectPageModule)
+  },
+  {
+    path: 'dashboardit-inv',
+    loadChildren: () => import('./pages/dashboard-inventarioti/dashboard-inventarioti.module').then( m => m.DashboardInventariotiPageModule)
+  },
+  {
+    path: 'dashboardgeotab',
+    loadChildren: () => import('./pages/dashboard-geototal/dashboard-geototal.module').then( m => m.DashboardGeototalPageModule)
+  },
+  {
+    path: 'dashboardkpioptracto',
+    loadChildren: () => import('./pages/dashboard-desentracto/dashboard-desentracto.module').then( m => m.DashboardDesentractoPageModule)
+  },
+  {
+    path: 'dashboardkpimandismec',
+    loadChildren: () => import('./pages/dashboard-kpimantenimiento/dashboard-kpimantenimiento.module').then( m => m.DashboardKpimantenimientoPageModule)
+  },
+  {
+    path: 'dashboardestadopro',
+    loadChildren: () => import('./pages/dashboard-estadoproy/dashboard-estadoproy.module').then( m => m.DashboardEstadoproyPageModule)
+  },
+  {
+    path: 'dashboardindexper',
+    loadChildren: () => import('./pages/dashboard-indexpersonal/dashboard-indexpersonal.module').then( m => m.DashboardIndexpersonalPageModule)
+  },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
+  },
+  {
+    path: 'reg-peaje/:data',
+    loadChildren: () => import('./pages/reg-peaje/reg-peaje.module').then( m => m.RegPeajePageModule)
+  }
 ];
 
 @NgModule({

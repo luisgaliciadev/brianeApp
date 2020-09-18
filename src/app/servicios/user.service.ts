@@ -23,6 +23,7 @@ export class UserService {
   linkDashboard: string;
   email: string;
   dni: string;
+  menu = [];
 
   constructor(
     public _http: HttpClient,
@@ -73,13 +74,21 @@ export class UserService {
     return this._http.post(this.URL + '/login', {EMAIL, PASSWORD})
       .pipe(map( (res: any) => {        
         if (res.id > 0) {  
-          this.idContentMenu = 'inicioAdmin';        
+          // console.log(res);
           this.token = res.token;
           this.user = res.user;
+          this.menu = res.menu;
           this._storage.set('BrianeAppToken', this.token);
           this._storage.set('BrianeAppEmail', EMAIL);
+          this._storage.set('BrianeAppMenu', this.menu);
+          this._storage.set('BrianeAppDni', this.user.IDEN);
+          if (this.user.IDEN == 14) {
+            this.idContentMenu = 'InicioConductor'; 
+          } else {
+            this.idContentMenu = 'inicioAdmin'; 
+          }
           this.loading.dismiss();
-          return true;
+          return this.user;
         }        
       }))
       .pipe(catchError( (err: any) => {

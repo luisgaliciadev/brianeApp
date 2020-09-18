@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class DashboardOsPage implements OnInit {
 
-  title = 'Ordenes Servicios';
+  title = 'Ordenes de Servicios';
   subscribe: any;
 
   constructor(
@@ -23,9 +23,9 @@ export class DashboardOsPage implements OnInit {
 
   ionViewDidEnter() {
     this.subscribe = this._platform.backButton.subscribeWithPriority(1, () => {
-      if (this.constructor.name === 'DashboardOsPage') {
-        this._router.navigate(['/tab-inicio/consultas']);
-      }
+      // if (this.constructor.name === 'DashboardOsPage') {
+        this._router.navigate(['/dashboards']);
+      // }
     });    
   }
 

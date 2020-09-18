@@ -17,16 +17,16 @@ export class MenuComponent implements OnInit {
   subscribe: any;  
 
   menus = [
-  // {
-  //   "icon": "person-circle-outline",
-  //   "name": "Mi perfil",
-  //   "redirectTo": ""
-  // },
-  // {
-  //   "icon": "settings-outline",
-  //   "name": "Configuracion",
-  //   "redirectTo": ""
-  // }
+  {
+    "icon": "person-circle-outline",
+    "name": "Mi perfil",
+    "redirectTo": ""
+  },
+  {
+    "icon": "settings-outline",
+    "name": "Dashboard",
+    "redirectTo": ""
+  }
   ];
 
   constructor(

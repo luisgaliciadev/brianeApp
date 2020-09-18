@@ -23,9 +23,9 @@ export class DashboardGuiasPage implements OnInit {
 
   ionViewDidEnter() {
     this.subscribe = this._platform.backButton.subscribeWithPriority(1, () => {
-      if (this.constructor.name === 'DashboardGuiasPage') {
-        this._router.navigate(['/tab-inicio/consultas']);
-      }
+      // if (this.constructor.name === 'DashboardGuiasPage') {
+        this._router.navigate(['/dashboards']);
+      // }
     });    
   }
 

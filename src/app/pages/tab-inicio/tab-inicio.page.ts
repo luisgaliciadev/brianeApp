@@ -14,16 +14,26 @@ export class TabInicioPage implements OnInit {
   modoOscuro: boolean;
   idContent: string;
   menus = [
-    // {
-    //   "icon": "person-circle-outline",
-    //   "name": "Mi perfil",
-    //   "redirectTo": ""
-    // },
-    // {
-    //   "icon": "settings-outline",
-    //   "name": "Configuracion",
-    //   "redirectTo": ""
-    // }
+    {
+      "icon": "home-outline",
+      "name": "Inicio",
+      "redirectTo": "/tab-inicio"
+    },
+    {
+      "icon": "person-circle-outline",
+      "name": "Mi perfil",
+      "redirectTo": "/perfil"
+    },
+    {
+      "icon": "search-circle-outline",
+      "name": "Consultas",
+      "redirectTo": "/tab-inicio/consultas"
+    },
+    {
+      "icon": "stats-chart-outline",
+      "name": "Dashboards",
+      "redirectTo": "/dashboards"
+    }
     ];
  
   constructor(
@@ -36,7 +46,7 @@ export class TabInicioPage implements OnInit {
   ) { 
     this.modoOscuro = this._dataLocalService.modoOscuro;
     this.idContent = this._dataUserService.idContentMenu;
-    this.idContent = 'inicioAdmin';
+    // this.idContent = 'inicioAdmin';
     // console.log('this.idContent: ',this.idContent);
   }
 
@@ -50,7 +60,8 @@ export class TabInicioPage implements OnInit {
     this._dataLocalService.modoOscuro = this.modoOscuro;
   }
 
-  cerrarSesion() {    
+  cerrarSesion() {   
+    console.log('HOLA'); 
     this.presentAlertSalir();
   }  
 

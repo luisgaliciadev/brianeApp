@@ -33,9 +33,9 @@ export class LoginConductorPage implements OnInit {
 
   ionViewDidEnter() {    
     this.subscribe = this._platform.backButton.subscribeWithPriority(1, () => {
-      if (this.constructor.name === 'LoginConductorPage') {
+      // if (this.constructor.name === 'LoginConductorPage') {
         this.volverInicio();
-      }
+      // }
     });  
   }
 

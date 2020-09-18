@@ -1,7 +1,14 @@
 <app-header [title]="title"></app-header>
 
-<ion-content>
-    <ion-slide>        
-        <img src="./assets/images/enConstruccion.jpg" class="slide-image">
+<ion-content [fullscreen]="true">
+    <ion-slide>
+        <ion-card>
+            <ion-card-content>
+                <ion-button color="danger" expand="full" shape="round" size="large" (click)="scan()">Scan Codigo</ion-button>
+                <ion-button color="danger" expand="full" shape="round" size="large" >Registro Manual</ion-button>
+                <ion-button color="danger" expand="full" shape="round" size="large" >Ver Historial</ion-button>
+            </ion-card-content>
+        </ion-card>
+        
     </ion-slide>
 </ion-content>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/servicios/user.service';
 import { LoadingController, AlertController, Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-viajes-conductor',
@@ -19,21 +20,28 @@ export class ViajesConductorPage implements OnInit {
   totalImporte = 0;
   importeTotal = '0.00';
   subscribe: any;
+  dni = '';
 
   constructor(
     public _userService: UserService,
     public _loadingController: LoadingController,
     public _alertController: AlertController,
     public _platform: Platform,
-    public _router: Router
-  ) {     
+    public _router: Router,
+    public _storage: Storage    
+  ) { 
+    this._storage.get('BrianeAppDni').then(
+      dni => {
+        this.dni = dni;
+      }
+    );    
   }
 
   ionViewDidEnter() {
     this.subscribe = this._platform.backButton.subscribeWithPriority(1, () => {
-      if (this.constructor.name === 'ViajesConductorPage') {
+      // if (this.constructor.name === 'ViajesConductorPage') {
         this._router.navigate(['/tab-conductor/consultas']);
-      }
+      // }
     });    
   }
 
@@ -49,15 +57,14 @@ export class ViajesConductorPage implements OnInit {
     this.loadingLogin();
     this.totalViajes = 0;
     this.totalImporte = 0;
-    this.importeTotal = '0.00';
-    const dni = '03658864';
+    this.importeTotal = '0.00'; 
     const desde = this.desde.substring(0, 10);
     const hasta = this.hasta.substring(0, 10);
     // console.log('dni: ', dni);
     // console.log('desde: ', desde);
     // console.log('hasta: ', hasta);
 
-    this._userService.conductorViajes(dni,desde,hasta).subscribe(
+    this._userService.conductorViajes(this.dni,desde,hasta).subscribe(
       viajes => {
         // console.log(viajes);
         this.viajes = viajes;
