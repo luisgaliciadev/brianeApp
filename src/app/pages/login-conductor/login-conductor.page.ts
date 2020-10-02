@@ -52,13 +52,24 @@ export class LoginConductorPage implements OnInit {
       return;
     }     
     this._userService.loginConductor(datosLogin.value.dni, datosLogin.value.password).subscribe(
-      response => {        
+      async response => {        
         if (response) {
+          let foto = await this.fotoPersonal(this._userService.dni);
+          console.log(foto);
+          //this._userService.foto = foto;
           this._router.navigate(['/tab-conductor/inicio']);
           this.password = '';  
         }
       }
     );    
+  }
+
+  fotoPersonal(dni) {
+    this._userService.getFotoPersonal(dni).subscribe(
+      response => {
+        console.log(response);
+      }
+    );
   }
 
   volverInicio() {

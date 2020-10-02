@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit {
     } else {
       this.userImage = 'http://190.117.103.41:3000/api/image/user/0' ;
     }
-
+   
   }
 
   cerrarSesion() {    

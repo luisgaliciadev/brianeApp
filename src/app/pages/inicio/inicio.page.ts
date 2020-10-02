@@ -48,22 +48,16 @@ export class InicioPage implements OnInit {
   }
 
   ionViewDidEnter() {    
-    this.subscribe = this._platform.backButton.subscribeWithPriority(1, () => {
-      console.log('presente0');
-      console.log(this.constructor.name);   
-      // if (this.constructor.name === 'InicioPage') {        
-        this._menuCtrl.isOpen('firstMenu').then(
-          (menuActivo) => {           
-            if (menuActivo) {
-              this._menuCtrl.toggle();              
-            } else {   
-              console.log('presente1');                       
-              this.presentAlertSalir();
-              console.log('presente3');
-            }
+    this.subscribe = this._platform.backButton.subscribeWithPriority(1, () => {   
+      this._menuCtrl.isOpen('firstMenu').then(
+        (menuActivo) => {           
+          if (menuActivo) {
+            this._menuCtrl.toggle();              
+          } else {                         
+            this.presentAlertSalir();
           }
-        );
-      // }
+        }
+      );
     });
   }
 
@@ -75,7 +69,6 @@ export class InicioPage implements OnInit {
   }  
 
   async presentAlertSalir() {
-    console.log('presente2');
     const alert = await this._alertController.create({
       header: 'Mensaje',      
       message: '¿Desea Cerrar la Sesión?',

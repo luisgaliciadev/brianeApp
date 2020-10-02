@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
-import { NavController } from '@ionic/angular';
+import { AlertController, MenuController, NavController, Platform } from '@ionic/angular';
+import { UserService } from 'src/app/servicios/service.index';
 // import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 // import { Router } from '@angular/router';
 // import { Platform } from '@ionic/angular';
@@ -18,25 +20,38 @@ export class ScanPage implements OnInit {
   slideOpts = {
     allowSlidePrev: false,
     allowSlideNext: false
-  }
-
-
+  };
+  scan = false;
+  
   constructor(
     private _barcodeScanner: BarcodeScanner,
-    private _navController: NavController
+    private _navController: NavController,
     // private qrScanner: QRScanner
-    // public _platform: Platform,
-    // private _router: Router
+    public _router: Router,
+    public _platform: Platform,
+    // public _dataLocalService: DataLocalService,
+    public _alertController: AlertController,
+    public _menuCtrl: MenuController,
+    public _userService: UserService
   ) { }
 
-  // ionViewDidEnter() {
-  //   this.subscribe = this._platform.backButton.subscribeWithPriority(666666, () => {
-  //     if (this.constructor.name === 'ScanPage') {
-  //       this.subscribe.unsubscribe();
-  //       this._router.navigate(['/tab-inicio']);
-  //     }
-  //   });
-  // }
+  ionViewDidEnter() {   
+    this.subscribe = this._platform.backButton.subscribeWithPriority(1, () => {   
+      this._menuCtrl.isOpen('firstMenu').then(
+        (menuActivo) => {           
+          if (menuActivo) {
+            this._menuCtrl.toggle();              
+          } else {   
+            if (!this.scan) {
+              this.presentAlertSalir();
+            } else {
+              this.scan = false;
+            }
+          }
+        }
+      );
+    });
+  }
 
   // ionViewDidLeave() {
   //   this.subscribe.unsubscribe();
@@ -46,17 +61,64 @@ export class ScanPage implements OnInit {
   ngOnInit() {
   }
 
-  scan() {
-    this._barcodeScanner.scan().then(barcodeData => {
-      console.log('Barcode data', barcodeData.text);
-      this._navController.navigateForward('/reg-peaje/' + barcodeData.text);
-      if (!barcodeData.cancelled) {
-        
-      }
-      }).catch(err => {
-        console.log('Error', err);
-        var barcodeData = ('20505377142|01|F154|767605|7.41|48.60|2020-08-28|6|20516185211|ObnlnH7aLOyYMCJlMK1EbfDySOU=');
-        this._navController.navigateForward('/reg-peaje/' + barcodeData);
-      });
-  }    
+  scanQR() {
+    this.scan = true;
+    this._barcodeScanner.scan().then(barcodeData => {      
+    if (!barcodeData.cancelled) {    
+      let arrayData = barcodeData.text.split('|');   
+      let dataFactura = `${arrayData[2]}|${arrayData[3]}|${arrayData[4]}|${arrayData[5]}|${arrayData[6]}`;   
+      this._navController.navigateForward('/reg-peaje/' + dataFactura);     
+    } 
+    }).catch(err => {
+      console.log('Error', err);
+      // var barcodeData = ('20505377142|01|F154|767605|7.41|48.60|2020-08-28|6|20516185211|ObnlnH7aLOyYMCJlMK1EbfDySOU=');
+      // let arrayData = barcodeData.split('|'); 
+      // let dataFactura = `${arrayData[2]}|${arrayData[3]}|${arrayData[4]}|${arrayData[5]}|${arrayData[6]}`;
+      // this._navController.navigateForward('/reg-peaje/' + dataFactura);
+    });
+  }  
+
+  registroManual() {
+    this._navController.navigateForward('/reg-peaje/0');
+  }
+
+  cerrarSesion() {    
+    this.presentAlertSalir();
+  }  
+
+  async presentAlertSalir() {
+    const alert = await this._alertController.create({
+      header: 'Mensaje',      
+      message: '¿Desea Cerrar la Sesión?',
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'botonAlert',
+          handler: (blah) => {
+          }
+        }, {
+          text: 'Aceptar',
+          cssClass: 'botonAlert',
+          handler: () => {
+            this._menuCtrl.isOpen('firstMenu').then(
+              (menuActivo) => {           
+                if (menuActivo) {
+                  this._menuCtrl.toggle(); 
+                  this._userService.cerrarSesion();
+                  this.subscribe.unsubscribe();
+                } else {
+                  this._userService.cerrarSesion(); 
+                  this.subscribe.unsubscribe();
+                }
+              }
+            );  
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
 }

@@ -61,7 +61,7 @@ export class TabInicioPage implements OnInit {
   }
 
   cerrarSesion() {   
-    console.log('HOLA'); 
+    // console.log('HOLA'); 
     this.presentAlertSalir();
   }  
 

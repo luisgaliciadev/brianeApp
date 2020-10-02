@@ -7,6 +7,15 @@
 
     <ion-title text-capitalize>{{title}}</ion-title>
   </ion-toolbar>
+
+  <!-- <ion-segment scrollable mode="md" (ionChange)="change($event)">
+    <ion-segment-button mode="md" value="0" >
+      <ion-label class="ion-text-capitalize"> TODAS </ion-label>
+    </ion-segment-button>
+    <ion-segment-button *ngFor="let zona of zonas" mode="md" [value]="zona.ID_ZONA_COND">
+      <ion-label class="ion-text-capitalize"> {{zona.NB_ZONA_COND}} </ion-label>
+    </ion-segment-button>
+  </ion-segment> -->
   
 </ion-header>
 
@@ -55,14 +64,14 @@
   <ion-grid *ngFor="let viaje of viajes">
     <ion-row>
       <ion-col col-2 class="ion-text-center">       
-        {{viaje.GuiRemision}}               
+        {{viaje.CORRELATIVO}}               
       </ion-col>
       <ion-col col-2 class="ion-text-center">
-        {{viaje.Fecha}}
+        {{viaje.FH_GUIA}}
       </ion-col>      
       <ion-col col-6 class="ion-text-left">        
-          {{viaje.Partida}} /              
-          {{viaje.Destino}}          
+          {{viaje.DS_ORI_DEST}} /              
+          {{viaje.DESTINO}}          
       </ion-col>
       <ion-col col-2 class="ion-text-center">
         {{viaje.ComisionImporte}}

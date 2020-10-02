@@ -24,6 +24,7 @@ export class UserService {
   email: string;
   dni: string;
   menu = [];
+  foto = '';
 
   constructor(
     public _http: HttpClient,
@@ -74,10 +75,10 @@ export class UserService {
     return this._http.post(this.URL + '/login', {EMAIL, PASSWORD})
       .pipe(map( (res: any) => {        
         if (res.id > 0) {  
-          // console.log(res);
           this.token = res.token;
           this.user = res.user;
           this.menu = res.menu;
+          this.dni = this.user.IDEN;
           this._storage.set('BrianeAppToken', this.token);
           this._storage.set('BrianeAppEmail', EMAIL);
           this._storage.set('BrianeAppMenu', this.menu);
@@ -119,27 +120,6 @@ export class UserService {
   }
   //FIN CERRAR SESION
   /////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // CONDUCTORES
-
-  // Viajes Conductor
-  conductorViajes(DNI: string, DESDE: string, HASTA) {
-    // console.log('entro a la funcion loginAdmin');    
-    return this._http.post(this.URL + '/conductor/viajes', {DNI, DESDE, HASTA})
-      .pipe(map( (res: any) => {          
-        return res.viajes;            
-      }))
-      .pipe(catchError( (err: any) => {
-        console.log(err);               
-        this.alertLogin('Error de Conexion al Servidor.');
-        return throwError(err);         
-      }));
-   }
-   // Fin de Viajes Conductor
-
-  // FIN CONDUCTORES
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////
   
   //////////////////////////////////////////////////////////////////////////////////////////////////
   ///////OTROS METODOS
@@ -165,7 +145,7 @@ export class UserService {
               .pipe(map( (res: any) => {
                  this.token = res.token;
                  this._storage.set('BrianeAppToken', this.token);
-                 console.log('Token renew');
+                //  console.log('Token renew');
                  return true;
                }))
                .pipe(catchError( (err: any) => {                
@@ -173,6 +153,16 @@ export class UserService {
                }));
   }
   // Fin de Renovar token
+
+  // Foto personal
+  getFotoPersonal(dni) {
+    return this._http.get(this.URL + '/login/fotopersonalapp/' + dni)
+    .pipe(map((res: any) => {
+      this.foto = res.foto;
+      return res;
+    }))
+  }
+  //
 
 // Alerta Login
   async alertLogin(mensaje) {

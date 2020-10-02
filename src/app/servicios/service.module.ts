@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
 import { UserService} from './service.index';
+import { RegisterService} from './service.index';
+
 
 
 @NgModule({
@@ -12,7 +14,8 @@ import { UserService} from './service.index';
     HttpClientModule
   ],
   providers: [    
-    UserService
+    UserService,
+    RegisterService
   ]
 })
 export class ServiceModule { }

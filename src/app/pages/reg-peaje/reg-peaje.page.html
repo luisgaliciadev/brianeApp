@@ -9,7 +9,7 @@
 
 <ion-content>
 
-  <form ngNativeValidate #formPeaje="ngForm" (ngSubmit)="guardar(formPeaje)">
+  <form ngNativeValidate #formPeaje="ngForm" (ngSubmit)="guardar(formPeaje.value)">
 
     <ion-card>      
       <ion-card-header>
@@ -19,24 +19,49 @@
       <ion-card-content>
         <ion-list>  
           <ion-item>
+            <ion-label position="floating">Nro. Guia:</ion-label>
+            <ion-input (ionBlur) = "validarGuia()" type="text" [(ngModel)]="nroGuia" name="nroGuia" required="true" placeholder="0000-0000000"></ion-input>
+            <ion-icon *ngIf="idGuia > 0" name="checkbox-outline" color="medium" slot="end"></ion-icon>
+          </ion-item>
+
+          <ion-item>
             <ion-label position="floating">Nro. Comprobante:</ion-label>
             <ion-input type="text" [(ngModel)]="nroComprobante" name="nroComprobante" required="true" placeholder="F001-0000001"></ion-input>
           </ion-item>
   
           <ion-item>
             <ion-label position="floating">Fecha:</ion-label>
-            <ion-input type="text" [(ngModel)]="fechaComprobante" name="fechaComprobante" required="true"></ion-input>
+            <!-- <ion-input type="ion-datetime" [(ngModel)]="fechaComprobante" name="fechaComprobante" required="true"></ion-input> -->
+
+            <!-- <ion-datetime placeholder="Fecha:"                   
+                  display-format="DD MM YYYY"
+                  cancelText="Cancelar"
+                  doneText="Aceptar"                  
+                  [ngModel] = "fechaComprobante"
+                  color="danger"             
+            ></ion-datetime> -->
+
+            <ion-datetime 
+                  [(ngModel)] = "fechaComprobante"
+                  name = "fechaComprobante"                  
+                  display-format="DD MM YYYY"
+                  cancelText="Cancelar"
+                  doneText="Aceptar"                  
+                  color="danger"             
+            ></ion-datetime>
+
+
           </ion-item>
   
           <ion-item>
             <ion-label position="floating">Monto:</ion-label>
-            <ion-input type="text" [(ngModel)]="montoComprobante" name="montoComprobante" required="true"></ion-input>
+            <ion-input type="number" step="0.01" [(ngModel)]="montoComprobante" name="montoComprobante" required="true"></ion-input>
           </ion-item>  
         </ion-list>
       </ion-card-content>
     </ion-card>
   
-    <ion-card>      
+    <!-- <ion-card>      
       <ion-card-header>
           <ion-card-title>Información del Viaje</ion-card-title>          
       </ion-card-header>
@@ -47,6 +72,7 @@
           <ion-item>
             <ion-label position="floating">Nro. Guia:</ion-label>
             <ion-input type="text" [(ngModel)]="nroGuia" name="nroGuia" required="true" placeholder="0000-0000000"></ion-input>
+            <ion-icon name="person" color="medium" slot="end"></ion-icon>
           </ion-item>
   
           <ion-item>
@@ -60,16 +86,19 @@
           </ion-item>
 
           
-            <ion-button expand="block" color="danger">Buscar Guia</ion-button>
+            <ion-button expand="block" color="danger" (click)="validarGuia()">Buscar Guia</ion-button>
          
         </ion-list>
       </ion-card-content>
-    </ion-card>
+    </ion-card> -->
 
     <ion-card-content>
       <ion-button [disabled]="!formPeaje.form.valid" type="submit" expand="block" color="danger">Guardar</ion-button>
+      <!-- <ion-button  type="button" expand="block" color="danger">Guardar</ion-button> -->
     </ion-card-content>
   </form>
+
+     
   
 </ion-content>
 

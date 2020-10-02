@@ -60,9 +60,8 @@ export class LoginPage implements OnInit {
       return;
     }     
     this._userService.loginAdmin(datosLogin.value.email, datosLogin.value.password).subscribe(
-      response => {        
+      async response => {        
         if (response) {
-          console.log(response);
           if (response.ID_ROLE == 14) {
             this._router.navigate(['/tab-conductor/inicio']);
           } else {
@@ -73,7 +72,7 @@ export class LoginPage implements OnInit {
       }
     );    
   }
-  
+
   loginConductor() {
     this._router.navigate(['/login-conductor']);
   }   
