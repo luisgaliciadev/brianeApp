@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { MenuComponent } from './menu/menu.component';
 import { DashboardsComponent } from './dashboards/dashboards.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { DashboardsComponent } from './dashboards/dashboards.component';
   imports: [
     CommonModule,
     IonicModule,
-    RouterModule
+    RouterModule,
+    PipesModule
   ],
   exports: [
     HeaderComponent,

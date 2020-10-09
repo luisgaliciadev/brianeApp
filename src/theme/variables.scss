@@ -4,6 +4,12 @@
 @import '~@angular/material/theming';
 // Plus imports for other components in your app.
 
+// @import 'node_modules/mdi/css/materialdesignicons.css';
+
+// @import '~@mdi/scss/materialdesingicons';
+
+// @import "../assets/fonts/mdi/css/materialdesignicons.css";
+
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
@@ -299,6 +305,7 @@ body.dark {
   
     // AQUI MODO OSCURO
   --ion-color-danger: #1a1a1a;
+  // --ion-color-danger:  #989aa2;
   --ion-color-danger-rgb: 255,73,97;
   --ion-color-danger-contrast: #ffffff;
   --ion-color-danger-contrast-rgb: 255,255,255;

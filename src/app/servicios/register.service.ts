@@ -102,7 +102,7 @@ export class RegisterService {
         return res.viajes;            
       }))
       .pipe(catchError( (err: any) => {
-        console.log(err);               
+        // console.log(err);               
         this.alerta('Error de Conexion al Servidor.');
         return throwError(err);         
       }));
@@ -118,18 +118,23 @@ export class RegisterService {
     return this._http.post(this.URL + '/conductor/peajefactapp', dataFactura, {headers})
     .pipe(map((res: any) => {
       this.alerta('Factura Registrada Correctamente.'); 
-      this._navController.navigateForward('/scan');
-      this.loading.dismiss();
+      if (this.loading) {
+        this.loading.dismiss();
+      }
       return res;
     }))
     .pipe(catchError( (err: any) => {   
       if (err.status === 400) {
         this.alerta(err.error.message); 
-        this.loading.dismiss();
+        if (this.loading) {
+          this.loading.dismiss();
+        }
         return throwError(err);
       } else {
         this.alerta('No se pudo realizar el registro.');
-        this.loading.dismiss();
+        if (this.loading) {
+          this.loading.dismiss();
+        }
         return throwError(err);
       }
     }));
@@ -169,6 +174,25 @@ export class RegisterService {
     return this.loading.present();
   }
   // Fin Loading Login
+
+  // Get documentos peajes
+getDocPeajes() { 
+  let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': this._userService.token});
+  return this._http.get(this.URL + '/conductor/peajes/documentos', {headers})
+  .pipe(map((res: any) => {
+    return res;   
+  }))
+  .pipe(catchError( (err: any) => {   
+    this._router.navigate(['/peajes']);
+    if (err.status === 400) {
+      return throwError(err);
+    } else {
+      // Swal.fire('Mensaje', 'No se pudo consultar la informacion.', 'error');
+      return throwError(err);
+    }
+  }));
+}
+// End Get documentos peajes
 
   // Otros metodos
   ///////////////////////////////////////////////////////////////////////////////////////////////////////

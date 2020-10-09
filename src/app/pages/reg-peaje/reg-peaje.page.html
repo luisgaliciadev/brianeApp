@@ -18,7 +18,14 @@
       
       <ion-card-content>
         <ion-list>  
-          <ion-item>
+          <ion-item *ngIf = "this.data === '0'">
+              <ion-label position="floating">Tipo Documento</ion-label>
+              <ion-select placeholder="Seleccionar" [(ngModel)]="idTipoDoc" name="idTipoDoc">
+                <ion-select-option  *ngFor="let documentos of documentosPeaje" value="{{documentos.ID_TIPO_DOC_PEAJE}}">{{documentos.DS_TIPO_DOC_PEAJE}}</ion-select-option>
+              </ion-select>
+          </ion-item>
+
+          <ion-item *ngIf="idTipoDoc == 1">
             <ion-label position="floating">Nro. Guia:</ion-label>
             <ion-input (ionBlur) = "validarGuia()" type="text" [(ngModel)]="nroGuia" name="nroGuia" required="true" placeholder="0000-0000000"></ion-input>
             <ion-icon *ngIf="idGuia > 0" name="checkbox-outline" color="medium" slot="end"></ion-icon>
@@ -26,7 +33,7 @@
 
           <ion-item>
             <ion-label position="floating">Nro. Comprobante:</ion-label>
-            <ion-input type="text" [(ngModel)]="nroComprobante" name="nroComprobante" required="true" placeholder="F001-0000001"></ion-input>
+            <ion-input type="text" [(ngModel)]="nroComprobante" name="nroComprobante" required="true" placeholder="F001-0000001 / 00000000"></ion-input>
           </ion-item>
   
           <ion-item>

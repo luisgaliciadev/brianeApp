@@ -24,6 +24,8 @@ export class RegPeajePage implements OnInit {
   ruta = '';
   subscribe: any;
   idGuia = 0;
+  documentosPeaje = [];
+  idTipoDoc = 0;
 
   constructor(
     // private _navParamas: NavParams
@@ -48,9 +50,11 @@ export class RegPeajePage implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.fechaComprobante);
+    // console.log(this.fechaComprobante);
     if (this._activeRoute.snapshot.paramMap.get('data')) {
+      // console.log('ingreso a parametros');
       this.data = this._activeRoute.snapshot.paramMap.get('data');
+      // console.log('this.data:', this.data);
       if (this.data != '0') {
         var arrayBarcodeData = this.data.split('|');
         var serialDoc = arrayBarcodeData[0];
@@ -61,7 +65,10 @@ export class RegPeajePage implements OnInit {
         this.nroComprobante = serialDoc + '-' + nroDoc;
         this.fechaComprobante = fechaEmision;
         this.montoComprobante = total;
-      }    
+        this.idTipoDoc = 1;
+      } {
+        this.getDocPeajes();
+      }   
     } 
   }
 
@@ -71,14 +78,24 @@ export class RegPeajePage implements OnInit {
     }
     this._registerService.getVerificarNroGuia(this.nroGuia).subscribe(
       (response: any) => {
-        console.log(response);
+        // console.log(response);
         this.idGuia = response.guia.ID_GUIA;
       }
     );
   }
 
+  getDocPeajes () {
+    this._registerService.getDocPeajes().subscribe(
+      (response: any) => { 
+        // console.log(response);      
+        this.documentosPeaje = response.documentosPeaje;
+        // console.log(this.documentosPeaje);
+      }
+    );
+  }
+
   guardar(datos: NgForm) {
-    if (this.idGuia == 0) {
+    if (this.idGuia == 0 && this.idTipoDoc == 1) {
       this._registerService.alerta('Debe ingresar un numero de guia valido.');
       return;
     }
@@ -91,7 +108,7 @@ export class RegPeajePage implements OnInit {
       fecha: fecha,
       idGuia: this.idGuia,
       idUser : this._userService.user.ID_USER,
-      idTipoDoc: 1,
+      idTipoDoc: this.idTipoDoc,
       dni: this._userService.dni
     }
 
@@ -104,10 +121,11 @@ export class RegPeajePage implements OnInit {
         this.nroGuia = '';
         this.idGuia = 0;
         // this._navController.navigateForward('/scan');
+        this._navController.pop();
       }
     );
 
-    console.log(datos);
+    // console.log(datos);
   }
 
 }

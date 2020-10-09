@@ -8,7 +8,7 @@
 
     <ion-buttons slot="end">
       <ion-avatar>
-        <img style="height: 50px; width: 50px; margin-top: 7px;" [src]="userImage">
+        <img style="height: 50px; width: 50px; margin-top: 7px;" [src]="user.IMAGE | image: 'user'">
       </ion-avatar>
     </ion-buttons>
   </ion-toolbar>  
@@ -22,26 +22,41 @@
     
     <ion-card-content>
       <ion-slide>
-        <ion-avatar style="height: 150px; width: 150px;">
-          <img style="height: 150px; width: 150px;" [src]="userImage">
+        <ion-avatar style="height: 150px; width: 150px;">         
+          <img *ngIf="!tempImage" style="height: 150px; width: 150px;" [src]="user.IMAGE | image: 'user'">
+          <img id="fotoPerfil" *ngIf="tempImage" style="height: 150px; width: 150px;" [src]="tempImage">
         </ion-avatar>
       </ion-slide>
-      <ion-list>
-        <ion-item>
-          <ion-label position="floating">Nombre de Usuario</ion-label>
-          <ion-input type="text" [(ngModel)]="nombre"></ion-input>
-        </ion-item>
+     
+      <ion-slide>
+          <ion-avatar (click)="buscarFoto()"  style="background-color: rgb(208, 208, 208); margin-top: -80px; margin-right: -140px; width: 40px; height: 40px;">
+            <ion-icon style="width: 30px; height: 30px; margin-top: 4px" name="camera"></ion-icon>
+          </ion-avatar>
+      </ion-slide>
 
-        <ion-item>
-          <ion-label position="floating">Email</ion-label>
-          <ion-input type="email" [(ngModel)]="email"></ion-input>
-        </ion-item>
+      <ion-slide *ngIf="tempImage">
+        <ion-button  type="button" expand="block" color="danger" (click)="changeImage()">Actualizar Imagen</ion-button>
+      </ion-slide>
+      <form ngNativeValidate #formProfile="ngForm" (ngSubmit)="saveProfile()">
+        <ion-list>
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input type="email" name="EMAIL" [(ngModel)]="user.EMAIL" readonly required></ion-input>
+          </ion-item>
 
-        <ion-item>
-          <ion-label position="floating">Nro. Telefono</ion-label>
-          <ion-input type="text" [(ngModel)]="telefono"></ion-input>
-        </ion-item>
-      </ion-list>
+          <ion-item>
+            <ion-label position="floating">Nombre de Usuario</ion-label>
+            <ion-input type="text" [(ngModel)]="user.NAME" name="NAME" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Nro. Telefono</ion-label>
+            <ion-input type="number" [(ngModel)]="user.PHONE" name="PHONE" required></ion-input>
+          </ion-item>
+
+        </ion-list>
+        <ion-button  [disabled]="!formProfile.form.valid" type="submit" expand="block" color="danger">Actualizar Datos</ion-button>
+      </form>
     </ion-card-content>
   </ion-card>
 </ion-content>

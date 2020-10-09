@@ -67,10 +67,12 @@ export class ScanPage implements OnInit {
     if (!barcodeData.cancelled) {    
       let arrayData = barcodeData.text.split('|');   
       let dataFactura = `${arrayData[2]}|${arrayData[3]}|${arrayData[4]}|${arrayData[5]}|${arrayData[6]}`;   
+      // console.log(dataFactura);
+      // console.log( this._navController.navigateForward('/reg-peaje/' + dataFactura));
       this._navController.navigateForward('/reg-peaje/' + dataFactura);     
     } 
     }).catch(err => {
-      console.log('Error', err);
+      // console.log('Error', err);
       // var barcodeData = ('20505377142|01|F154|767605|7.41|48.60|2020-08-28|6|20516185211|ObnlnH7aLOyYMCJlMK1EbfDySOU=');
       // let arrayData = barcodeData.split('|'); 
       // let dataFactura = `${arrayData[2]}|${arrayData[3]}|${arrayData[4]}|${arrayData[5]}|${arrayData[6]}`;

@@ -16,6 +16,12 @@ import { ServiceModule } from './servicios/service.module';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { File } from '@ionic-native/file/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
+import { WebView } from '@ionic-native/ionic-webview/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
+import { PipesModule } from './pipes/pipes.module';
+
 // import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 
 @NgModule({
@@ -30,13 +36,17 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
     HttpClientModule,
     ReactiveFormsModule,
     ServiceModule,
-    BrowserAnimationsModule
-    
+    BrowserAnimationsModule,
+    PipesModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
     BarcodeScanner,
+    File,
+    Camera,
+    WebView,
+    FilePath,
     // QRScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     InAppBrowser

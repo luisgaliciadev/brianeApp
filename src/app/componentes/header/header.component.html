@@ -6,7 +6,9 @@
 
     <ion-buttons slot="end">
       <ion-avatar>
-        <img style="height: 50px; width: 50px; margin-top: 7px;" [src]="userImage">
+        
+        <!-- <img style="height: 50px; width: 50px; margin-top: 7px;" [src]="userImage"> -->
+        <img routerLink="/perfil" style="height: 50px; width: 50px; margin-top: 7px;" [src]="user.IMAGE | image: 'user'">
         <!-- <img src="data:image/jpg;charset=utf8;base64,'.$imagen.'" class="card-img" > -->
       </ion-avatar>
       <!-- <ion-button (click)="cerrarSesion()">

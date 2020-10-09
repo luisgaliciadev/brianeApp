@@ -6,6 +6,8 @@ import { map, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { UploadFileService } from './upload-file.service';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,7 @@ export class UserService {
 
   URL: string;
   conductor;
-  user;
+  user: User;
   loading: any;
   cargando = false;
   token;
@@ -31,7 +33,8 @@ export class UserService {
     public _router: Router,
     public _alertController: AlertController,
     public _loadingController: LoadingController,
-    private _storage: Storage
+    private _storage: Storage,
+    private _uploadFileService: UploadFileService
   ) {    
     this.loadStorage();
     this.URL = URL_SERVICES;
@@ -51,17 +54,23 @@ export class UserService {
           this.conductor = res.conductor;
           this._storage.set('BrianeAppToken', this.token);
           this._storage.set('BrianeAppDni', DNI);
-          this.loading.dismiss();
+          if (this.loading) {
+             this.loading.dismiss();
+          }
           return true;
         }        
       }))
       .pipe(catchError( (err: any) => {
         if (err.status === 400 || err.status === 404 || err.status === 500) {          
           const message = err.error.message;
-          this.loading.dismiss();
+          if (this.loading) {
+             this.loading.dismiss();
+          }
           this.alertLogin(message);
          } else {
-          this.loading.dismiss();         
+          if (this.loading) {
+             this.loading.dismiss();
+          }         
           this.alertLogin('Error de Conexion al Servidor.');
           return throwError(err);
          }
@@ -83,23 +92,29 @@ export class UserService {
           this._storage.set('BrianeAppEmail', EMAIL);
           this._storage.set('BrianeAppMenu', this.menu);
           this._storage.set('BrianeAppDni', this.user.IDEN);
-          if (this.user.IDEN == 14) {
+          if (this.user.ID_ROLE == 14) {
             this.idContentMenu = 'InicioConductor'; 
           } else {
             this.idContentMenu = 'inicioAdmin'; 
           }
-          this.loading.dismiss();
+          if (this.loading) {
+             this.loading.dismiss();
+          }
           return this.user;
         }        
       }))
       .pipe(catchError( (err: any) => {
-        console.log(err);
+        // console.log(err);
         if (err.status === 400 || err.status === 404 || err.status === 500) {
-          this.loading.dismiss();
+          if (this.loading) {
+             this.loading.dismiss();
+          }
           const message = err.error.message;
           this.alertLogin(message);
          } else {
-          this.loading.dismiss();         
+          if (this.loading) {
+             this.loading.dismiss();
+          }         
           this.alertLogin('Error de Conexion al Servidor.');
           return throwError(err);
          }
@@ -120,11 +135,70 @@ export class UserService {
   }
   //FIN CERRAR SESION
   /////////////////////////////////////////////////////////////////////////////////////////////////////////
-  
-  //////////////////////////////////////////////////////////////////////////////////////////////////
-  ///////OTROS METODOS
 
-  // Cargar storage
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // METODOS PARA USUARIO
+
+  // Actualizar perfil de usuario
+  updateProfile(user: User) {
+    this.loadingLogin();
+    let json = JSON.stringify(user);
+    let params = json;
+    let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': this.token});
+    return this._http.put(this.URL + '/user/' + user.ID_USER, params, {headers})
+    .pipe(map((res: any) => {
+      // console.log(res);
+      this.user = res.user;
+      if (this.loading) {
+        this.loading.dismiss();
+      }  
+      this.alertLogin('Datos actualizados correctamente.');
+      return true;
+    }))
+    .pipe(catchError( (err: any) => {
+      // console.log(err.error.message);
+      if (err.status === 400) {
+        if (this.loading) {
+          this.loading.dismiss();
+        }  
+        this.alertLogin('No se pudo actualizar la información.');
+        return throwError(err);
+      } else {
+        if (this.loading) {
+          this.loading.dismiss();
+        }  
+        this.alertLogin('Error en la petición.');
+        return throwError(err);
+      }
+    }));
+   }
+   // Fin Actualizar perfil de usuario
+
+   // Cambiar imagen de perfil de usuario
+  changeImage(file: File, id: number) {
+    this.loadingLogin();
+    return this._uploadFileService.uploadFile(file, 'user', id, this.user.ID_USER)
+        .then( (resp: any) => {            
+          this.user.IMAGE = resp.user.IMAGE;
+          if (this.loading) {
+             this.loading.dismiss();
+          }  
+          this.alertLogin('Imagen actualizada correctamente.');
+          return true; 
+        })
+        .catch( resp => {
+          if (this.loading) {
+             this.loading.dismiss();
+          } 
+          // console.log('error resp changeImage:', resp);
+          this.alertLogin('No se pudo cargar la imagen.');
+          return false; 
+        });
+   }
+   // Fin Cambiar imagen de perfil de usuario
+
+   // Cargar storage
   async loadStorage() {    
     const token = await this._storage.get('BrianeAppToken');
     this.token = token;
@@ -163,6 +237,13 @@ export class UserService {
     }))
   }
   //
+
+  // METODOS PARA USUARIO
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////OTROS METODOS
+
 
 // Alerta Login
   async alertLogin(mensaje) {

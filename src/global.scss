@@ -34,8 +34,26 @@ ion-content.background{
     color: white;
 }
 
-.botonAlert{
-    color: var(--ion-color-dark) !important;
+// .botonAlert{
+//     color: var(--ion-color-dark) !important;
+// }
+
+
+.actionAlert{
+    color: var(--ion-color-danger) !important;
+}
+
+// .avatar{
+//     background-color: var(--ion-color-danger) !important;
+// }
+
+body.dark .actionAlert {
+    // --ion-color-danger:  #989aa2;
+  --ion-color-danger:  #989aa2;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255,255,255;
+  --ion-color-danger-shade: #e04055;
+  --ion-color-danger-tint: #ff5b71;
 }
 
 .datetime{
