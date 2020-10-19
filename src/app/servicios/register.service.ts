@@ -54,7 +54,7 @@ export class RegisterService {
     .pipe(catchError( (err: any) => {   
       if (err.status === 400) {
         const message = err.error.message;
-        this.alerta(message);
+        this.alertaError(message);
         return throwError(err);
       } else {
         return throwError(err);
@@ -103,7 +103,7 @@ export class RegisterService {
       }))
       .pipe(catchError( (err: any) => {
         // console.log(err);               
-        this.alerta('Error de Conexion al Servidor.');
+        this.alertaError('Error de Conexion al Servidor.');
         return throwError(err);         
       }));
    }
@@ -125,13 +125,13 @@ export class RegisterService {
     }))
     .pipe(catchError( (err: any) => {   
       if (err.status === 400) {
-        this.alerta(err.error.message); 
+        this.alertaError(err.error.message); 
         if (this.loading) {
           this.loading.dismiss();
         }
         return throwError(err);
       } else {
-        this.alerta('No se pudo realizar el registro.');
+        this.alertaError('No se pudo realizar el registro.');
         if (this.loading) {
           this.loading.dismiss();
         }
@@ -165,6 +165,26 @@ export class RegisterService {
     await alert.present();
   }
   // Fin alerta
+
+  // Alerta error
+  async alertaError(mensaje) {
+    const alert = await this._alertController.create({
+      header: 'Error',
+      message: mensaje,
+      mode: 'ios',
+      cssClass: 'danger',
+      buttons: [
+        {
+          text: 'Aceptar',
+          cssClass: 'botonAlert',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+  // Fin alerta error
 
   // Loading Login
   async loadingLogin() {

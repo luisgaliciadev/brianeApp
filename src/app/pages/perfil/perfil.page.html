@@ -37,7 +37,7 @@
       <ion-slide *ngIf="tempImage">
         <ion-button  type="button" expand="block" color="danger" (click)="changeImage()">Actualizar Imagen</ion-button>
       </ion-slide>
-      <form ngNativeValidate #formProfile="ngForm" (ngSubmit)="saveProfile()">
+      <form ngNativeValidate #formProfile="ngForm" (ngSubmit)="presentAlertUpdate()">
         <ion-list>
           <ion-item>
             <ion-label position="floating">Email</ion-label>
@@ -56,6 +56,35 @@
 
         </ion-list>
         <ion-button  [disabled]="!formProfile.form.valid" type="submit" expand="block" color="danger">Actualizar Datos</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>      
+    <ion-card-header>
+        <ion-card-title>Cambio de Contraseña</ion-card-title>          
+    </ion-card-header>
+
+    <ion-card-content>    
+      <form ngNativeValidate #formPassword="ngForm" (ngSubmit)="presentAlertUpdatePass()">
+        <ion-list>
+          <ion-item>
+            <ion-label position="floating">Contraseña Actual</ion-label>
+            <ion-input type="password" [(ngModel)]="passActual" name="passActual" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Nueva contraseña</ion-label>
+            <ion-input type="password" [(ngModel)]="passNuevo" name="passNuevo" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Confirmar Contraseña</ion-label>
+            <ion-input type="password" [(ngModel)]="passConfir" name="passConfir" required></ion-input>
+          </ion-item>
+
+        </ion-list>
+        <ion-button  [disabled]="!formPassword.form.valid" type="submit" expand="block" color="danger">Cambiar Contraseña</ion-button>
       </form>
     </ion-card-content>
   </ion-card>

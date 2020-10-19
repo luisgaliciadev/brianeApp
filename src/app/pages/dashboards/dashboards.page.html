@@ -14,7 +14,7 @@
     <ion-item *ngFor="let opcion of opciones; let i = index" [routerLink]="opcion.URL" detail>
       <!-- <ion-icon slot="start" color="primary" [name]="opcion.ICON"></ion-icon> -->
       <i [class]="opcion.ICON"></i>
-      <ion-label>{{opcion.DS_MODULE}} - icono {{opcion.ICON}}</ion-label>
+      <ion-label>{{opcion.DS_MODULE}}</ion-label>
     </ion-item> 
   </ion-list>
 </ion-content>

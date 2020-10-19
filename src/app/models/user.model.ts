@@ -9,7 +9,8 @@ export class User {
         public GOOGLE?: boolean,
         public PHONE?: string,
         public IDEN?: string,
-        public ID_USER?: number
+        public ID_USER?: number,
+        public PASSWORD_NEW?: string
     ) { }
 
 // tslint:disable-next-line: eofline

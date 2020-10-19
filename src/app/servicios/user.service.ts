@@ -66,12 +66,12 @@ export class UserService {
           if (this.loading) {
              this.loading.dismiss();
           }
-          this.alertLogin(message);
+          this.alertaError(message);
          } else {
           if (this.loading) {
              this.loading.dismiss();
           }         
-          this.alertLogin('Error de Conexion al Servidor.');
+          this.alertaError('Error de Conexion al Servidor.');
           return throwError(err);
          }
       }));
@@ -110,12 +110,12 @@ export class UserService {
              this.loading.dismiss();
           }
           const message = err.error.message;
-          this.alertLogin(message);
+          this.alertaError(message);
          } else {
           if (this.loading) {
              this.loading.dismiss();
           }         
-          this.alertLogin('Error de Conexion al Servidor.');
+          this.alertaError('Error de Conexion al Servidor.');
           return throwError(err);
          }
       }));
@@ -162,13 +162,13 @@ export class UserService {
         if (this.loading) {
           this.loading.dismiss();
         }  
-        this.alertLogin('No se pudo actualizar la información.');
+        this.alertaError('No se pudo actualizar la información.');
         return throwError(err);
       } else {
         if (this.loading) {
           this.loading.dismiss();
         }  
-        this.alertLogin('Error en la petición.');
+        this.alertaError('Error en la petición.');
         return throwError(err);
       }
     }));
@@ -192,7 +192,7 @@ export class UserService {
              this.loading.dismiss();
           } 
           // console.log('error resp changeImage:', resp);
-          this.alertLogin('No se pudo cargar la imagen.');
+          this.alertaError('No se pudo cargar la imagen.');
           return false; 
         });
    }
@@ -238,6 +238,38 @@ export class UserService {
   }
   //
 
+   // Actualizar constraseña de usuario
+   updatePassword(user: User) {
+    this.loadingLogin(); 
+    let json = JSON.stringify(user);
+    let params = json;
+    let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': this.token});
+    return this._http.put(this.URL + '/user/password/' + user.ID_USER, params, {headers})
+    .pipe(map((res: any) => {
+      if (this.loading) {
+        this.loading.dismiss();
+      }
+      this.alertLogin('Contraseña actualizada correctamente');
+      return true;
+    }))
+    .pipe(catchError( (err: any) => {
+      if (err.status === 400) {
+        if (this.loading) {
+          this.loading.dismiss();
+        }
+        this.alertaError(err.error.message);
+        return throwError(err);
+      } else {
+        if (this.loading) {
+          this.loading.dismiss();
+        }
+        this.alertaError('No se pudo actualizar la consatraseña');
+        return throwError(err);
+      }
+    }));
+   }
+   // Fin Actualizar constraseña de usuario
+
   // METODOS PARA USUARIO
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
   
@@ -263,6 +295,26 @@ export class UserService {
     await alert.present();
   }
   // Fin alerta login
+
+  // Alerta error
+  async alertaError(mensaje) {
+    const alert = await this._alertController.create({
+      header: 'Error',
+      message: mensaje,
+      mode: 'ios',
+      cssClass: 'danger',
+      buttons: [
+        {
+          text: 'Aceptar',
+          cssClass: 'botonAlert',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+  // Fin alerta error
 
   // Loading Login
   async loadingLogin() {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Platform, NavController } from '@ionic/angular';
+import { Platform, NavController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/servicios/user.service';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
@@ -32,6 +32,9 @@ export class PerfilPage implements OnInit {
   tempImage: string;
   fgAction = false;
   images = [];
+  passActual = '';
+  passNuevo = '';
+  passConfir = '';
 
   constructor(
     public _platform: Platform,
@@ -41,6 +44,7 @@ export class PerfilPage implements OnInit {
     // private _webView: WebView,
     private _camera: Camera,
     private _actionSheetController: ActionSheetController,
+    private _alertController: AlertController
     // private _filePath: FilePath
   ) { 
     this.URL = URL_SERVICES;
@@ -173,6 +177,27 @@ export class PerfilPage implements OnInit {
     );
   }
 
+  updatePassword() {
+    if (this.passNuevo === this.passConfir) {
+      if (this.passConfir.length < 6) {
+        this.alerta('La constraseña debe tener al menos 6 caracteres.');
+      } else {
+        this.user.PASSWORD_NEW = this.passConfir;
+        this.user.PASSWORD = this.passActual;
+        // console.log(this.user);
+        this._userService.updatePassword(this.user).subscribe(
+          (response: any) => {
+            console.log(response);
+            this.passActual = '';
+            this.passNuevo = '';
+            this.passConfir = '';
+          }
+        );
+      }      
+    } else {
+      this.alerta('Las constraseñas no son iguales.');
+    }
+  }
   async buscarFoto() {
     const actionSheet = await this._actionSheetController.create({
       header: 'Buscar Foto',
@@ -207,6 +232,75 @@ export class PerfilPage implements OnInit {
     });
     this.fgAction = true;
     await actionSheet.present();
+  }
+
+  // Alerta
+  async alerta(mensaje) {
+    const alert = await this._alertController.create({
+      header: 'Mensaje',
+      message: mensaje,
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Aceptar',
+          cssClass: 'botonAlert',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+  // Fin alerta
+
+  async presentAlertUpdate() {
+    const alert = await this._alertController.create({
+      header: 'Mensaje',
+      // subHeader: 'Cerrar Sesión',
+      message: '¿Desea Actualizar sus Datos?',
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'botonAlert',
+          handler: (blah) => {
+          }
+        }, {
+          text: 'Aceptar',
+          cssClass: 'botonAlert',
+          handler: () => {
+            this.saveProfile();
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async presentAlertUpdatePass() {
+    const alert = await this._alertController.create({
+      header: 'Mensaje',
+      // subHeader: 'Cerrar Sesión',
+      message: '¿Desea Actualizar su Contraseña?',
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'botonAlert',
+          handler: (blah) => {
+          }
+        }, {
+          text: 'Aceptar',
+          cssClass: 'botonAlert',
+          handler: () => {
+            this.updatePassword();
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
   
 }
